@@ -1,0 +1,75 @@
+/*  SELF ASSESSMENT of whether my code is easy to understand.
+   1. Did I use easy-to-understand meaningful and properly formatted variable names?
+       Mark out of 5:   5
+       Comment: Yes, I have used easy-to-understand and meaningful variables.
+    2. Is my code easy to follow/understand?
+       Mark out of 5:   5
+       Comment: Yes, my code is easy to follow/understand
+   3. Did I use the functions as required?
+       Mark out of 10:   10
+       Comment: Yes, I used functions as required by the question.
+       Total Mark out of  20 (Add all the previous marks): 20
+ */
+
+import java.util.Scanner;
+public class PerniciousNumbers{
+
+	public static void main(String[] args){
+		Scanner input = new Scanner(System.in);
+		System.out.print("Enter the maximum number you want to consider:");
+		int givenNumber = input.nextInt();
+		for(int number = 1 ; number <= givenNumber; number++){
+			if(isPernicious(number)){
+				System.out.printf("%d is a pernicious number as it contains %d ones "+
+						"in it's binary representation (%s)\n", number, countBinaryOnes(number),
+						getBinaryString(number));
+			}
+		}
+		input.close();
+
+	}
+
+	public static boolean isPrime(int givenNumber){
+		if(givenNumber <= 1){
+			return false;
+		}
+
+		for(int divisor = 2 ; divisor <= Math.sqrt(givenNumber); divisor++){
+			if(givenNumber % divisor == 0){
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	public static int countBinaryOnes(int givenNumber){
+		int numberOfOnes = 0;
+
+		for(int bitPosition = 0; bitPosition < 32; bitPosition++){
+			numberOfOnes += givenNumber & 1;
+			givenNumber >>= 1;
+		}
+
+		return numberOfOnes;
+	}
+	public static boolean isPernicious(int givenNumber){
+		return isPrime(countBinaryOnes(givenNumber));
+	}
+	public static String getBinaryString(int givenNumber){
+		StringBuilder binaryRepresentation = new StringBuilder();
+		int leftmostBitInBinaryRepresentation  = 31;
+		for(int bitPosition = 31; bitPosition >= 0; bitPosition--){
+			int currentBit = givenNumber & 1;
+			binaryRepresentation.append(currentBit);
+
+			if(currentBit == 1){
+				leftmostBitInBinaryRepresentation = bitPosition;
+			}
+
+			givenNumber >>= 1;
+		}
+		return binaryRepresentation.reverse().toString()
+				.substring(leftmostBitInBinaryRepresentation);
+	}
+}
