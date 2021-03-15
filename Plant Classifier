@@ -1,0 +1,37 @@
+import java.util.Scanner;
+
+public class PlantClassifier {
+	public static void main(String[] args) {
+		Scanner input = new Scanner(System.in);
+
+		System.out.print("Does the plant have cells and tissues which are organised into functional structures (Yes/No)? ");
+		String organisedStructures = input.next();
+		final String NO = "No";
+		if (organisedStructures.equalsIgnoreCase("No")) {
+			System.out.println("ALGAE");
+		} else {
+			System.out.print("Does the plant have vascular tissues (Yes/No)? ");
+			String vascularTissues = input.next();
+
+			if (vascularTissues.equalsIgnoreCase("No")) {
+				System.out.println("BRYOPHITE");
+			} else {
+				System.out.print("Is the plant dispersed by seeds (Yes/No)? ");
+				String seedDispersed = input.next();
+
+				if (seedDispersed.equalsIgnoreCase("No")) {
+					System.out.println("PTERIDOPHYTE");
+				} else {
+					System.out.print("Are the seeds enclosed (Yes/No)? ");
+					String seedsEnclosed = input.next();
+
+					if (seedsEnclosed.equalsIgnoreCase("No")) {
+						System.out.println("GYMNOSPERM");
+					} else {
+						System.out.print("ANGIOSPERM");
+					}
+				}
+			}
+		}
+	}
+}
